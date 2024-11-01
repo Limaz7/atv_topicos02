@@ -20,30 +20,33 @@ function inserirUsuarios(usuarios) {
     }
 }
 
-function inserirUsuario(usuario) {
-    let tbody = document.getElementById('usuarios');
+function inserirPedidos(pedido) {
+    let tbody = document.getElementById('pedidos');
     let tr = document.createElement('tr');
     let tdId = document.createElement('td');
-    tdId.innerHTML = usuario.id_usuario;
+    tdId.innerHTML = pedido.id_pedido;
     let tdNome = document.createElement('td');
-    tdNome.innerHTML = usuario.nome;
-    let tdEmail = document.createElement('td');
-    tdEmail.innerHTML = usuario.email;
+    tdNome.innerHTML = pedido.nome;
+    let tdDesc = document.createElement('td');
+    tdDesc.innerHTML = pedido.descricao;
+    let tdCat = document.createElement('td');
+    tdCat.innerHTML = pedido.categoria;
     let tdAlterar = document.createElement('td');
     let btnAlterar = document.createElement('button');
     btnAlterar.innerHTML = "Alterar";
-    btnAlterar.addEventListener("click", buscaUsuario, false);
-    btnAlterar.id_usuario = usuario.id_usuario;
+    btnAlterar.addEventListener("click", buscaPedido, false);
+    btnAlterar.id_pedido = pedido.id_pedido;
     tdAlterar.appendChild(btnAlterar);
     let tdExcluir = document.createElement('td');
     let btnExcluir = document.createElement('button');
     btnExcluir.addEventListener("click", excluir, false);
-    btnExcluir.id_usuario = usuario.id_usuario;
+    btnExcluir.id_pedido = pedido.id_pedido;
     btnExcluir.innerHTML = "Excluir";
     tdExcluir.appendChild(btnExcluir);
     tr.appendChild(tdId);
     tr.appendChild(tdNome);
-    tr.appendChild(tdEmail);
+    tr.appendChild(tdDesc);
+    tr.appendChild(tdCat);
     tr.appendChild(tdAlterar);
     tr.appendChild(tdExcluir);
     tbody.appendChild(tr);
@@ -53,23 +56,23 @@ function excluir(evt) {
     let id_usuario = evt.currentTarget.id_usuario;
     let excluir = confirm("Você tem certeza que deseja excluir?");
     if (excluir == true) {
-        fetch('excluir.php?id_usuario=' + id_usuario,
+        fetch('excluir.php?id_pedido=' + id_pedido,
             {
                 method: "GET",
                 headers: { 'Content-Type': "application/json; charset=UTF-8" }
             }
         )
             .then(response => response.json())
-            .then(retorno => excluirUsuario(retorno, id_usuario))
+            .then(retorno => excluirUsuario(retorno, id_pedido))
             .catch(error => console.log(error));
     }
 }
 
-function excluirUsuario(retorno, id_usuario) {
+function excluirPedido(retorno, id_pedido) {
     if (retorno == true) {
-        let tbody = document.getElementById('usuarios');
+        let tbody = document.getElementById('pedidos');
         for (const tr of tbody.children) {
-            if (tr.children[0].innerHTML == id_usuario) {
+            if (tr.children[0].innerHTML == id_pedido) {
                 tbody.removeChild(tr);
             }
         }
@@ -77,91 +80,93 @@ function excluirUsuario(retorno, id_usuario) {
 }
 
 
-function alterarUsuario(usuario) {
-    let tbody = document.getElementById('usuarios');
+function alterarPedido(pedido) {
+    let tbody = document.getElementById('pedidos');
     for (const tr of tbody.children) {
-        if (tr.children[0].innerHTML == pessoa.id_usuario) {
-            tr.children[1].innerHTML = pessoa.nome;
-            tr.children[2].innerHTML = pessoa.email;
+        if (tr.children[0].innerHTML == pedido.id_pedido) {
+            tr.children[1].innerHTML = pedido.nome;
+            tr.children[2].innerHTML = pedido.descricao;
+            tr.children[3].innerHTML = pedido.categoria;
         }
     }
 }
 
-function buscaUsuario(evt) {
-    let id_usuario = evt.currentTarget.id_usuario;
-    //console.log(id_usuario);
-    fetch('buscaUsuario.php?id_usuario=' + id_usuario,
+function buscaPedido(evt) {
+    let id_pedido = evt.currentTarget.id_pedido;
+    fetch('buscaPedidos.php?id_pedido=' + id_pedido,
         {
             method: "GET",
             headers: { 'Content-Type': "application/json; charset=UTF-8" }
         }
     )
         .then(response => response.json())
-        .then(usuario => preencheForm(usuario))
+        .then(pedido => preencheForm(pedido))
         .catch(error => console.log(error));
 }
 
-function preencheForm(usuario) {
-    let inputIDUsuario = document.getElementsByName("id_usuario")[0];
-    inputIDUsuario.value = usuario.id_usuario;
+function preencheForm(pedido) {
+    let inputIDPedido = document.getElementsByName("id_pedido")[0];
+    inputIDPedido.value = pedido.id_pedido;
     let inputNome = document.getElementsByName("nome")[0];
-    inputNome.value = usuario.nome
-    let inputEmail = document.getElementsByName("email")[0];
-    inputEmail.value = usuario.email;
+    inputNome.value = pedido.nome
+    let inputDesc = document.getElementsByName("desc")[0];
+    inputDesc.value = pedido.descricao;
+    let inputCat = document.getElementsByName("cat")[0];
+    inputCat.value = pedido.categoria;
 }
 
-function salvarUsuario(event) {
+function salvarPedido(event) {
     // parar o comportamento padrão do form
     event.preventDefault();
-    // obtém o input id_usuario
-    let inputIDUsuario = document.getElementsByName("id_usuario")[0];
+    // obtém o input id_pedido
+    let inputIDPedido= document.getElementsByName("id_pedido")[0];
     // pega o valor do input id_usuario
-    let id_usuario = inputIDUsuario.value;
+    let id_pedido = inputIDPedido.value;
 
     let inputNome = document.getElementsByName("nome")[0];
     let nome = inputNome.value;
-    let inputEmail = document.getElementsByName("email")[0];
-    let email = inputEmail.value;
-    let inputSenha = document.getElementsByName("senha")[0];
-    let senha = inputSenha.value;
+    let inputDesc = document.getElementsByName("desc")[0];
+    let descricao = inputDesc.value;
+    let inputCat = document.getElementsByName("cat")[0];
+    let categoria = inputCat.value;
 
-    cadastrar(id_usuario, nome, email, senha);
+    cadastrar(id_usuario, nome, descricao, categoria);
 
     document.getElementsByTagName('form')[0].reset();
 }
 
-function cadastrar(id_usuario, nome, email, senha) {
+function cadastrar(id_usuario, nome, descricao, categoria) {
     fetch('inserir.php',
         {
             method: 'POST',
             body: JSON.stringify({
                 id_usuario: id_usuario,
                 nome: nome,
-                email: email,
-                senha: senha
+                descricao: descricao,
+                categoria: categoria
             }),
             headers: { 'Content-Type': "application/json; charset=UTF-8" }
         }
     )
         .then(response => response.json())
-        .then(usuario => inserirUsuario(usuario))
+        .then(pedido => inserirUsuario(pedido))
         .catch(error => console.log(error));
 }
 
-function alterar(id_usuario, nome, email, senha) {
+function alterar(id_usuario, nome, descricao, categoria) {
     fetch('alterar.php',
         {
             method: 'POST',
             body: JSON.stringify({
                 id_usuario: id_usuario,
                 nome: nome,
-                email: email,
-                senha: senha
+                email: descricao,
+                senha: categoria
             }),
             headers: { 'Content-Type': "application/json; charset=UTF-8" }
         }
     )
         .then(response => response.json())
-        .then(usuario => alterarUsuario(usuario))
+        .then(pedido => alterarUsuario(pedido))
         .catch(error => console.log(error));
 }
