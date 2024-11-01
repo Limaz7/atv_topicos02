@@ -10,17 +10,17 @@ function listarTodos() {
         }
     )
         .then(response => response.json())
-        .then(usuarios => inserirUsuarios(usuarios))
+        .then(pedidos => inserirPedidos(pedidos))
         .catch(error => console.log(error));
 }
 
-function inserirUsuarios(usuarios) {
-    for (const usuario of usuarios) {
-        inserirUsuario(usuario);
+function inserirPedidos(pedidos) {
+    for (const pedido of pedidos) {
+        inserirPedido(pedido);  
     }
 }
 
-function inserirPedidos(pedido) {
+function inserirPedido(pedido) {
     let tbody = document.getElementById('pedidos');
     let tr = document.createElement('tr');
     let tdId = document.createElement('td');
@@ -53,7 +53,7 @@ function inserirPedidos(pedido) {
 }
 
 function excluir(evt) {
-    let id_usuario = evt.currentTarget.id_usuario;
+    let id_pedido = evt.currentTarget.id_pedido;
     let excluir = confirm("Você tem certeza que deseja excluir?");
     if (excluir == true) {
         fetch('excluir.php?id_pedido=' + id_pedido,
@@ -63,7 +63,7 @@ function excluir(evt) {
             }
         )
             .then(response => response.json())
-            .then(retorno => excluirUsuario(retorno, id_pedido))
+            .then(retorno => excluirPedido(retorno, id_pedido))
             .catch(error => console.log(error));
     }
 }
@@ -120,7 +120,7 @@ function salvarPedido(event) {
     event.preventDefault();
     // obtém o input id_pedido
     let inputIDPedido= document.getElementsByName("id_pedido")[0];
-    // pega o valor do input id_usuario
+    // pega o valor do input id_pedido
     let id_pedido = inputIDPedido.value;
 
     let inputNome = document.getElementsByName("nome")[0];
@@ -130,17 +130,17 @@ function salvarPedido(event) {
     let inputCat = document.getElementsByName("cat")[0];
     let categoria = inputCat.value;
 
-    cadastrar(id_usuario, nome, descricao, categoria);
+    cadastrar(id_pedido, nome, descricao, categoria);
 
     document.getElementsByTagName('form')[0].reset();
 }
 
-function cadastrar(id_usuario, nome, descricao, categoria) {
+function cadastrar(id_pedido, nome, descricao, categoria) {
     fetch('inserir.php',
         {
             method: 'POST',
             body: JSON.stringify({
-                id_usuario: id_usuario,
+                id_pedido: id_pedido,
                 nome: nome,
                 descricao: descricao,
                 categoria: categoria
@@ -149,7 +149,7 @@ function cadastrar(id_usuario, nome, descricao, categoria) {
         }
     )
         .then(response => response.json())
-        .then(pedido => inserirUsuario(pedido))
+        .then(pedido => inserirPedido(pedido))
         .catch(error => console.log(error));
 }
 
