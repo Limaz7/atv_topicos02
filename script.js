@@ -34,11 +34,15 @@ function inserirPedido(pedido) {
     let tdAlterar = document.createElement('td');
     let btnAlterar = document.createElement('button');
     btnAlterar.innerHTML = "Alterar";
+    btnAlterar.classList.add('waves-light', 'waves-effect', 'btn');
+    btnAlterar.style.background = 'black';
     btnAlterar.addEventListener("click", buscaPedido, false);
     btnAlterar.id_pedido = pedido.id_pedido;
     tdAlterar.appendChild(btnAlterar);
     let tdExcluir = document.createElement('td');
     let btnExcluir = document.createElement('button');
+    btnExcluir.classList.add('waves-light', 'waves-effect', 'btn');
+    btnExcluir.style.background = "black";
     btnExcluir.addEventListener("click", excluir, false);
     btnExcluir.id_pedido = pedido.id_pedido;
     btnExcluir.innerHTML = "Excluir";
@@ -93,7 +97,7 @@ function alterarPedido(pedido) {
 
 function buscaPedido(evt) {
     let id_pedido = evt.currentTarget.id_pedido;
-    fetch('buscaPedidos.php?id_pedido=' + id_pedido,
+    fetch('buscarPedidos.php?id_pedido=' + id_pedido,
         {
             method: "GET",
             headers: { 'Content-Type': "application/json; charset=UTF-8" }
@@ -108,7 +112,7 @@ function preencheForm(pedido) {
     let inputIDPedido = document.getElementsByName("id_pedido")[0];
     inputIDPedido.value = pedido.id_pedido;
     let inputNome = document.getElementsByName("nome")[0];
-    inputNome.value = pedido.nome
+    inputNome.value = pedido.nome;
     let inputDesc = document.getElementsByName("desc")[0];
     inputDesc.value = pedido.descricao;
     let inputCat = document.getElementsByName("cat")[0];
@@ -130,7 +134,11 @@ function salvarPedido(event) {
     let inputCat = document.getElementsByName("cat")[0];
     let categoria = inputCat.value;
 
-    cadastrar(id_pedido, nome, descricao, categoria);
+    if(id_pedido == null){
+        cadastrar(id_pedido, nome, descricao, categoria);
+    } else {
+        alterar(id_pedido, nome, descricao, categoria);
+    }
 
     document.getElementsByTagName('form')[0].reset();
 }
@@ -153,20 +161,20 @@ function cadastrar(id_pedido, nome, descricao, categoria) {
         .catch(error => console.log(error));
 }
 
-function alterar(id_usuario, nome, descricao, categoria) {
+function alterar(id_pedido, nome, descricao, categoria) {
     fetch('alterar.php',
         {
             method: 'POST',
             body: JSON.stringify({
-                id_usuario: id_usuario,
+                id_pedido: id_pedido,
                 nome: nome,
-                email: descricao,
-                senha: categoria
+                descricao: descricao,
+                categoria: categoria
             }),
             headers: { 'Content-Type': "application/json; charset=UTF-8" }
         }
     )
         .then(response => response.json())
-        .then(pedido => alterarUsuario(pedido))
+        .then(pedido => alterarPedido(pedido))
         .catch(error => console.log(error));
 }

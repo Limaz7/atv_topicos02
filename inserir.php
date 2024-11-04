@@ -9,7 +9,7 @@ $sql = "INSERT INTO pedidos
         VALUES 
         ('$pedidos->nome', 
         '$pedidos->descricao', 
-        '$pedido->categoria')";
+        '$pedidos->categoria')";
 
 executarSQL($conexao, $sql);
 

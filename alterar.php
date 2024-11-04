@@ -6,10 +6,10 @@ $conexao = conectar();
 $pedidos = json_decode(file_get_contents("php://input"));
 $sql = "UPDATE pedidos SET
         nome='$pedidos->nome', 
-        descricao='$pedidos->email', 
-        categoria='$pedidos->senha'
-        WHERE id_usuario=$pedidos->id_usuario";
+        descricao='$pedidos->descricao', 
+        categoria='$pedidos->categoria'
+        WHERE id_pedido=$pedidos->id_pedido";
 
 executarSQL($conexao, $sql);
 
-echo json_encode($usuario);
+echo json_encode($pedidos);
