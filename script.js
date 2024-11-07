@@ -134,10 +134,10 @@ function salvarPedido(event) {
     let inputCat = document.getElementsByName("cat")[0];
     let categoria = inputCat.value;
 
-    if(id_pedido == null){
-        cadastrar(id_pedido, nome, descricao, categoria);
-    } else {
+    if(id_pedido) {
         alterar(id_pedido, nome, descricao, categoria);
+    } else {
+        cadastrar(id_pedido, nome, descricao, categoria);
     }
 
     document.getElementsByTagName('form')[0].reset();

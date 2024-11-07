@@ -23,7 +23,7 @@
             <label>Nome: <input type="text" name="nome"></label><br>
             <label>Descrição: <input type="text" name="desc"></label><br>
             <label>Categoria: <input type="text" name="cat"></label><br>
-            <input style="color: white; background-color: black;" class="waves-effect waves-light btn" type="submit" value="Salvar Pedido">
+            <input class="waves-effect waves-light btn" type="submit" value="Salvar Pedido">
         </form>
         <br>
         <table>
