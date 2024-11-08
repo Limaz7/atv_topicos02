@@ -12,19 +12,44 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
     <title>CRUD JS</title>
+
 </head>
 
 <body>
     <main class="container">
-        <h1> Pedidos </h1>
+        <h1 class="center-align"> Pedidos </h1>
 
-        <form onsubmit="return salvarPedido(event);">
-            <label>ID: <input type="number" name="id_pedido"></label><br>
-            <label>Nome: <input type="text" name="nome"></label><br>
-            <label>Descrição: <input type="text" name="desc"></label><br>
-            <label>Categoria: <input type="text" name="cat"></label><br>
-            <input class="waves-effect waves-light btn" type="submit" value="Salvar Pedido">
-        </form>
+        <div class="card-panel">
+
+            <form onsubmit="return salvarPedido(event);">
+
+                <input type="hidden" name="id_pedido">
+
+                <div class="input-field col s10 offset-s1">
+                    <input type="text" placeholder="" id="nome" name="nome" class="validade" required>
+                    <label for="nome">Nome</label>
+                    <span class="helper-text" data-error="Campo com preenchimento obrigatório."></span>
+                </div>
+
+                <div class="input-field col s10 offset-s1">
+                    <input type="text" placeholder="" id="desc" name="desc" class="validade" required>
+                    <label for="desc">Descrição</label>
+                    <span class="helper-text" data-error="Campo com preenchimento obrigatório."></span>
+                </div>
+
+                <div class="input-field col s10 offset-s1">
+                    <input type="text" placeholder="" id="cat" name="cat" class="validade" required>
+                    <label for="cat">Categoria</label>
+                    <span class="helper-text" data-error="Campo com preenchimento obrigatório."></span>
+                </div>
+
+                <p class="center-align">
+                    <input class="waves-light btn" style="background-color: black; color: white !important;" type="submit" value="Salvar Pedido">
+                </p>
+
+            </form>
+
+        </div>
         <br>
         <table>
             <thead>
@@ -40,6 +65,7 @@
         </table>
     </main>
 
+   
 </body>
 <script src="script.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>

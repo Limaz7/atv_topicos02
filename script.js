@@ -135,20 +135,19 @@ function salvarPedido(event) {
     let categoria = inputCat.value;
 
     if(id_pedido) {
-        alterar(id_pedido, nome, descricao, categoria);
+        alterar(nome, descricao, categoria);
     } else {
-        cadastrar(id_pedido, nome, descricao, categoria);
+        cadastrar(nome, descricao, categoria);
     }
 
     document.getElementsByTagName('form')[0].reset();
 }
 
-function cadastrar(id_pedido, nome, descricao, categoria) {
+function cadastrar(nome, descricao, categoria) {
     fetch('inserir.php',
         {
             method: 'POST',
             body: JSON.stringify({
-                id_pedido: id_pedido,
                 nome: nome,
                 descricao: descricao,
                 categoria: categoria
