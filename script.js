@@ -122,11 +122,10 @@ function preencheForm(pedido) {
 function salvarPedido(event) {
     // parar o comportamento padrão do form
     event.preventDefault();
-    // obtém o input id_pedido
-    let inputIDPedido= document.getElementsByName("id_pedido")[0];
-    // pega o valor do input id_pedido
-    let id_pedido = inputIDPedido.value;
 
+
+    let inputIDPedido= document.getElementsByName("id_pedido")[0];
+    let id_pedido = inputIDPedido.value;
     let inputNome = document.getElementsByName("nome")[0];
     let nome = inputNome.value;
     let inputDesc = document.getElementsByName("desc")[0];
@@ -134,10 +133,10 @@ function salvarPedido(event) {
     let inputCat = document.getElementsByName("cat")[0];
     let categoria = inputCat.value;
 
-    if(id_pedido) {
-        alterar(nome, descricao, categoria);
-    } else {
+    if(id_pedido == null) {
         cadastrar(nome, descricao, categoria);
+    } else {
+        alterar(id_pedido, nome, descricao, categoria);
     }
 
     document.getElementsByTagName('form')[0].reset();
