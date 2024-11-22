@@ -133,7 +133,7 @@ function salvarPedido(event) {
     let inputCat = document.getElementsByName("cat")[0];
     let categoria = inputCat.value;
 
-    if(id_pedido == null) {
+    if(!id_pedido) {
         cadastrar(nome, descricao, categoria);
     } else {
         alterar(id_pedido, nome, descricao, categoria);
