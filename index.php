@@ -41,9 +41,10 @@
 
 <body>
     <main class="container">
-        <h1>Olá P. diddy</h1>
+        <h2 style="text-align: center;">Bem vindo ao sistema de pedidos</h2>
 
-        <a href="formcadpedidos.php">Cadastrar pedidos</a>
+        <div style="text-align: center;">Clique no botão abaixo para realizar um pedido. <br><br>
+        <a href="formcadpedidos.php" class="black waves-effect waves-light btn">Cadastrar pedidos</a></div>
     </main>
 
     <footer class="page-footer black">
@@ -62,10 +63,10 @@
                     <div class="grey-text text-lighten-4">Perguntas frequentes<br></div>
                 </div>
                 <div class="col l4 s12">
-                    <h5 class="white-text">Siga-nos</h5>
+                    <h5 class="white-text">Siga-me</h5>
                     <img src="img/instagram.png" width="30">
                     <img src="img/tiktok.png" width="30">
-                    <img src="img/telegram.webp" width="30">
+                    <img src="img/telegram.png" width="30">
                 </div>
             </div>
         </div>

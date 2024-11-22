@@ -44,28 +44,32 @@
 
 <body>
     <main class="container">
+
         <h1 class="center-align"> Pedidos </h1>
 
         <div class="card-panel">
 
             <form onsubmit="return salvarPedido(event);">
 
-                <input type="hidden" name="id_pedido">
+                <div class="input-field col s10 offset-s1">
+                    <input id="id" name="id_pedido" type="text" disabled>
+                    <label for="id">ID</label>
+                </div>
 
                 <div class="input-field col s10 offset-s1">
-                    <input type="text" placeholder="" id="nome" name="nome" class="validade" required>
+                    <input type="text" id="nome" name="nome" class="validade" required>
                     <label for="nome">Nome</label>
                     <span class="helper-text" data-error="Campo com preenchimento obrigatório."></span>
                 </div>
 
                 <div class="input-field col s10 offset-s1">
-                    <input type="text" placeholder="" id="desc" name="desc" class="validade" required>
+                    <input type="text" id="desc" name="desc" class="validade" required>
                     <label for="desc">Descrição</label>
                     <span class="helper-text" data-error="Campo com preenchimento obrigatório."></span>
                 </div>
 
                 <div class="input-field col s10 offset-s1">
-                    <input type="text" placeholder="" id="cat" name="cat" class="validade" required>
+                    <input type="text" id="cat" name="cat" class="validade" required>
                     <label for="cat">Categoria</label>
                     <span class="helper-text" data-error="Campo com preenchimento obrigatório."></span>
                 </div>
@@ -75,6 +79,10 @@
                 </p>
 
             </form>
+        </div>
+
+        <div style="text-align: center;">Emitir PDF dos pedidos <br>
+            <a href="relatorio.php" class="black waves-effect waves-light btn">Emitir pdf</a> <br><br>
         </div>
 
         <table>
@@ -89,6 +97,7 @@
             </thead>
             <tbody id="pedidos"></tbody>
         </table>
+
     </main>
 
     <footer class="page-footer black">
@@ -110,7 +119,7 @@
                     <h5 class="white-text">Siga-nos</h5>
                     <img src="img/instagram.png" width="30">
                     <img src="img/tiktok.png" width="30">
-                    <img src="img/telegram.webp" width="30">
+                    <img src="img/telegram.png" width="30">
                 </div>
             </div>
         </div>
